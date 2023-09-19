@@ -309,4 +309,7 @@ input[type="submit"] {
   .card2:hover .second-content2{
     font-size: 0.8rem;
   }
+  .card2:hover .first-content2{
+    font-size: 1.1rem;
+  }
 }
