@@ -38,9 +38,11 @@ background-color: #7FB730;
 @media screen and (max-width:769px) {
   #navbar{
       padding: 0;
+      background-color: #7FB730;
   }
   #nava{
-      font-size:1.2rem;
+      font-size:2.2rem;
+      margin-left: 5px;
   }
 
 }
