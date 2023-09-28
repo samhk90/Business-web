@@ -311,7 +311,7 @@ input[type="submit"] {
   }
   .card2{
     width: 100%;
-    font-size: 10px;
+    font-size: 30px;
   }
   .card2:hover .second-content2{
     font-size: 0.8rem;
@@ -319,4 +319,9 @@ input[type="submit"] {
   .card2:hover .first-content2{
     font-size: 1.1rem;
   }
+}
+#container2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
