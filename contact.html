@@ -75,35 +75,18 @@
           <div class="row">
             <div class="col">
               <div class="container-fluid" id="contact-form">
-                <form action="https://api.web3forms.com/submit" id="myForm">
-                  <input type="hidden" name="access_key" value="57d8cce4-3114-47b5-8650-0d90384777ad">
-                  <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="phone">Phone Number:</label>
-                    <input type="tel" id="phone" name="phone" required>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="subject">Subject:</label>
-                    <input type="text" id="subject" name="subject" required>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="message">Message:</label>
-                    <textarea id="message" name="message" rows="4" required></textarea>
-                  </div>
-
-                  <input type="submit" value="Submit" class="btn btn-primary">
-
+                <form id="contactForm">
+                  <label for="name">Name:</label>
+                  <input type="text" id="name" name="name" required>
+                
+                  <label for="email">Email:</label>
+                  <input type="email" id="email" name="email" required>
+                  <label for="phone">Phone:</label>
+                  <input type="tel" id="phone" name="phone" required>
+                  <label for="message">Message:</label>
+                  <textarea id="message" name="message" required></textarea>
+                
+                  <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
               </div>
             </div>
@@ -137,8 +120,11 @@
         </div>
     </div>
 </footer>
-  
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <script>
+  
+
     var button = document.querySelector('.navbar-toggler');
     button.addEventListener('click', function () {
         var target = document.querySelector(button.getAttribute('data-bs-target'));
@@ -147,14 +133,48 @@
         alert("Thank you for your submission!");
     }
 
-    const form = document.getElementById('myForm');
+    const form = document.getElementById('contactForm');
     form.addEventListener('submit', function (event) {
         event.preventDefault();
 
         showThankYouMessage();
         form.reset();
     });
+
+    const supabaseUrl = 'https://tspfgkdycobywmywxfrw.supabase.co';
+
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRzcGZna2R5Y29ieXdteXd4ZnJ3Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5NTkyNDgyMiwiZXhwIjoyMDExNTAwODIyfQ.qdpDpv5ZyUNP8GzVa9CbH4jZj3ujrlC5NjJccXGhPao';
+const supabase = createClient(supabaseUrl, supabaseKey);
+const createClient=supabase;
+const contactForm = document.getElementById('contactForm');
+
+contactForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(contactForm);
+  const name = formData.get('name');
+  const email = formData.get('email');
+  const phone = formData.get('phone'); // Add phone field
+  const message = formData.get('message');
+
+  try {
+    const { data, error } = await supabase.from('contacts').insert([
+      { name, email, phone, message } // Include phone in the insert statement
+    ]);
+
+    if (error) {
+      console.error(error);
+    } else {
+      console.log('Contact information stored:', data);
+      // You can redirect or show a success message here
+    }
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 </script>
+
 <script src="https://web3forms.com/client/script.js" async defer></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

@@ -224,7 +224,7 @@ textarea {
   border-radius: 20px;
 }
 
-input[type="submit"] {
+button[type="submit"] {
   background-color: #7FB730;
   color: white;
   font-size: 1.1rem;
